@@ -1,0 +1,6 @@
+%YAML 1.2
+---
+
+msbuild.build_config:              Debug
+start.iis_path: 'MemoryBattle'
+start.iis_port: 9001
