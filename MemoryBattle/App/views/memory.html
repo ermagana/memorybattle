@@ -1,6 +1,6 @@
 ﻿<section>
-    <!-- <h2 data-bind="html: displayName"></h2> -->
     <div class="row-fluid">
+        <!-- ko if: images.length > 0 -->
         <ul class="thumbnails" data-bind="foreach: images">
             <li style="float:left;">
                 <a href="#" class="thumbnail" data-bind="click:$parent.select">
@@ -9,5 +9,9 @@
                 </a>
             </li>
         </ul>
+        <!-- /ko -->
+        <!-- ko if: images.length === 0 -->
+            <h2>WINNER!</h2>
+        <!-- /ko -->
     </div>
 </section>

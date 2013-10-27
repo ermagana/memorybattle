@@ -7,6 +7,8 @@
     var ctx = function(){
         var that = this;
         that.images = [];
+        that.previousMatch = undefined;
+
         that.activate = function () {
             //the router's activator calls this function and waits for it to complete before proceding
             if (that.images.length > 0) {
@@ -24,9 +26,34 @@
                      that.images = that.images.concat(inUse).shuffle();
                 });
         };
+
         that.select = function(item) {
             item.show = !item.show;
+            if(that.previousMatch && that.previousMatch !== item){
+                setTimeout(function()
+                {
+                    MatchAndUpdate.call(that, item);
+                }, 250);
+            }else if(item.show){
+                that.previousMatch = item;
+            }else{
+                that.previousMatch = undefined;
+            }
         };
+
+        function MatchAndUpdate(item){
+            if(this.previousMatch.media.m === item.media.m){
+                this.images = $.map(this.images, function(ele, idx){
+                    if(ele.media.m !== item.media.m)
+                        return ele;
+                });
+            }else{
+                item.show = false;
+                this.previousMatch.show = false;
+            }
+            this.previousMatch = undefined;
+        }
+
         that.canDeactivate = function () {
             //the router's activator calls this function to see if it can leave the screen
             return app.showMessage('Are you sure you want to leave this page?', 'Navigate', ['Yes', 'No']);
