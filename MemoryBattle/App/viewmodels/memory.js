@@ -1,4 +1,4 @@
-﻿define(['plugins/http', 'durandal/app', 'knockout'], function (http, app, ko) {
+﻿define(['plugins/http', 'durandal/app', 'extensions/arrays', 'knockout'], function (http, app, ko) {
     //Note: This module exports an object.
     //That means that every module that "requires" it will get the same object instance.
     //If you wish to be able to create multiple instances, instead export a function.
@@ -21,7 +21,7 @@
                                                 ele.show = false;
                                                 return [ele, $.extend({}, ele)];
                                             });
-                     that.images = that.images.concat(inUse);
+                     that.images = that.images.concat(inUse).shuffle();
                 });
         };
         that.select = function(item) {
