@@ -6,26 +6,29 @@
 
     var ctx = function(){
         var that = this;
-        that.images = [];
+        that.game = {};
         that.previousMatch = undefined;
 
         that.activate = function () {
             //the router's activator calls this function and waits for it to complete before proceding
-            if (that.images.length > 0) {
-                return;
-            }
-
-            return http.jsonp('http://api.flickr.com/services/feeds/photos_public.gne',
-                    { /*tags: 'mount ranier', tagmode: 'any',*/ format: 'json' },'jsoncallback')
-                .then(function(response) {
-                    var inUse = $.map(response.items.slice(0,4),
-                                            function(ele, idx){
-                                                ele.show = false;
-                                                return [ele, $.extend({}, ele)];
-                                            });
-                     that.images = that.images.concat(inUse).shuffle();
-                });
+            return $.getJSON('/api/Game')
+                .then(startGame);
         };
+
+        function startGame (game){
+            var tiles = game.Tiles;
+            var options = { tags: '', tagmode: 'any', format: 'json' };
+            return http.jsonp('http://api.flickr.com/services/feeds/photos_public.gne', options ,'jsoncallback')
+                .then(function(response) {
+                var inUse = $.map(response.items.slice(0, tiles),
+                    function(ele, idx){
+                        ele.show = false;
+                        return [ele, $.extend({}, ele)];
+                    });
+                game.Images = game.Images.concat(inUse).shuffle();
+                that.game = game;
+            });
+        }
 
         that.select = function(item) {
             item.show = !item.show;
@@ -43,7 +46,7 @@
 
         function MatchAndUpdate(item){
             if(this.previousMatch.media.m === item.media.m){
-                this.images = $.map(this.images, function(ele, idx){
+                this.game.Images = $.map(this.game.Images, function(ele, idx){
                     if(ele.media.m !== item.media.m)
                         return ele;
                 });

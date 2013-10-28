@@ -1,7 +1,7 @@
 ﻿<section>
     <div class="row-fluid">
-        <!-- ko if: images.length > 0 -->
-        <ul class="thumbnails" data-bind="foreach: images">
+        <!-- ko if: game.Images.length > 0 -->
+        <ul class="thumbnails" data-bind="foreach: game.Images">
             <li style="float:left;">
                 <a href="#" class="thumbnail" data-bind="click:$parent.select">
                     <img style="width: 260px; height: 180px;" data-bind="attr: { src: media.m }, visible: show"/>
@@ -10,7 +10,7 @@
             </li>
         </ul>
         <!-- /ko -->
-        <!-- ko if: images.length === 0 -->
+        <!-- ko if: game.Images.length === 0 -->
             <h2>WINNER!</h2>
         <!-- /ko -->
     </div>
