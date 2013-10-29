@@ -4,7 +4,11 @@
         'durandal': '../Scripts/durandal',
         'plugins': '../Scripts/durandal/plugins',
         'transitions': '../Scripts/durandal/transitions',
-        'extensions': '../Scripts/extensions'
+        'extensions': '../Scripts/extensions',
+        'scripts': '../Scripts'
+    },
+    shim: {
+        '/signalr/hubs': ['jquery', 'scripts/jquery.signalR-2.0.0']
     }
 });
 

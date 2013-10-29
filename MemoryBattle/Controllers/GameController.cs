@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Mvc;
 using MemoryBattle.Extensions;
+using MemoryBattle.Hubs;
 using MemoryBattle.Models;
 using Newtonsoft.Json.Linq;
 
@@ -9,17 +11,18 @@ namespace MemoryBattle.Controllers
 {
     public class GameController : ApiController
     {
-        private static Dictionary<string, Game> state = new Dictionary<string, Game>();
         // GET api/game
         public Game Get()
         {
             var clientIP = Request.GetClientIpAddress();
-            if (!state.ContainsKey(clientIP))
+            lock (Game.DB)
             {
-                state.Add(clientIP, new Game { Player = clientIP, Images = new JArray(), Tiles = 4 });
+                if (!Game.DB.ContainsKey(clientIP))
+                {
+                    Game.DB.Add(clientIP, new Game { Player = clientIP, Images = new Image[0], Tiles = 4 });
+                }
+                return Game.DB[clientIP];
             }
-            return state[clientIP];
         }
-
     }
 }
