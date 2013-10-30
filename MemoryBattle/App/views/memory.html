@@ -1,12 +1,12 @@
 ﻿<section>
+    <div class="row-fluid" data-bind="template: { name: 'gameview', data: game}">
+    </div>
+</section>
+<section>
     <div class="column-fluid" data-bind="foreach: challengers">
         <div class="column-fluid" data-bind="template: { name: 'gameview', data: $data}">
         </div>
         <hr>
-    </div>
-</section>
-<section>
-    <div class="row-fluid" data-bind="template: { name: 'gameview', data: game}">
     </div>
 </section>
 
@@ -15,7 +15,7 @@
     <!-- ko if: Images.length > 0 -->
         <ul class="thumbnails" data-bind="foreach: Images">
             <li style="float:left;cursor:pointer;">
-                <img style="width: 260px; height: 180px;" 
+                <img style="width: 130px; height: 90px;"
                     data-bind="click: $parents[1].select, attr: { src: show ? media.m : '/Content/images/Piramid.png'}"/>
             </li>
         </ul>
