@@ -15,7 +15,7 @@
         // SignalR listener for push changes from competitors
         gameHubProxy.client.challengersUpdate = function(game){
             var other = $.map(that.challengers, function(ele, idx){
-                    if(game.Player === ele.Player){
+                    if(game.Ip === ele.Ip){
                        return ele;
                    }
                })[0];
@@ -104,6 +104,9 @@
                     if(ele.media.m !== item.media.m)
                         return ele;
                 });
+
+                if(this.game.Images.length === 0)
+                    this.game.Tiles = 0;
             }else{
                 item.show = false;
                 previousMatch.show = false;

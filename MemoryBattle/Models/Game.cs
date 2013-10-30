@@ -11,6 +11,7 @@ namespace MemoryBattle.Models
         public static Dictionary<string, Game> DB = new Dictionary<string, Game>();
 
         public int Tiles { get; set; }
+        public string Ip { get; set; }
         public string Player { get; set; }
         public Image[] Images { get; set; }
     }

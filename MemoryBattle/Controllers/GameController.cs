@@ -19,7 +19,7 @@ namespace MemoryBattle.Controllers
             {
                 if (!Game.DB.ContainsKey(clientIP))
                 {
-                    Game.DB.Add(clientIP, new Game { Player = clientIP, Images = new Image[0], Tiles = 4 });
+                    Game.DB.Add(clientIP, new Game { Ip = clientIP, Player = clientIP, Images = new Image[0], Tiles = 4 });
                 }
                 return Game.DB[clientIP];
             }
